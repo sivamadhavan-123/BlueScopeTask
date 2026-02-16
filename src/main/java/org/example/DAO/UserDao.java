@@ -6,6 +6,7 @@ import org.example.DTO.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDao {
@@ -31,8 +32,32 @@ public class UserDao {
             throw new RuntimeException(e);
 
         }
-
     }
 
 
+    public static User login(String username){
+
+        String sql = "select  password,role,name from user where username=?";
+        try (
+                Connection connection = DataBaseCon.getDataSource().getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setString(1, username);
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
+                user.setName(rs.getString("name"));
+                return user;
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
+
+    }
 }

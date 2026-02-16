@@ -13,14 +13,9 @@ public class User {
     public User() {
     }
 
-
-    public User(int id, String name, int age, String username, String password, String mobile, String role) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.username = username;
+    public User(String role ,String password) {
+        this.role = role;
         this.password = password;
-        this.mobile = mobile;
     }
 
     public User(String name, int age, String username, String password, String mobile) {
