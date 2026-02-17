@@ -1,4 +1,4 @@
-package org.example.DBCon;
+package org.example.DBConnection;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

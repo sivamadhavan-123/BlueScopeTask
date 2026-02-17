@@ -19,20 +19,20 @@ public class SignUp extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         PrintWriter out = resp.getWriter();
-String name=req.getParameter("name");
-int age=Integer.parseInt(req.getParameter("age"));
-String username=req.getParameter("username");
-String password=req.getParameter("password");
-String mobile=req.getParameter("mobile");
+        String name = req.getParameter("name");
+        int age = Integer.parseInt(req.getParameter("age"));
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        String mobile = req.getParameter("mobile");
 
-     String hashPassword = BCrypt.hashpw(password,BCrypt.gensalt(12));
+        String hashPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
 
 
-User user=new User(name,age,username,hashPassword,mobile);
-user.setRole("USER");
-     boolean ok = UserDao.insert(user);
+        User user = new User(name, age, username, hashPassword, mobile);
+        user.setRole("USER");
+        boolean ok = UserDao.insert(user);
 
-out.println(ok?"signup success":"signup failed");
+        out.println(ok ? "signup success" : "signup failed");
 
 
     }
