@@ -1,4 +1,4 @@
-package org.example.Servlet;
+package org.example.Controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -6,8 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.example.DAO.UserDao;
 import org.example.DTO.LoginDto;
+import org.example.Service.ServiceLayer;
 import org.mindrot.jbcrypt.BCrypt;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,13 +23,11 @@ public class SignIn extends HttpServlet {
         String password = req.getParameter("password");
 
 
-        LoginDto user = UserDao.login(username);
+        LoginDto user = ServiceLayer.login(username,password);
 
         PrintWriter out = resp.getWriter();
 
         if (user != null) {
-            if (BCrypt.checkpw(password, user.getPassword())) {
-
                 HttpSession session = req.getSession();
                 session.setAttribute("username", user.getUsername());
                 session.setAttribute("role", user.getRole());
@@ -38,11 +36,8 @@ public class SignIn extends HttpServlet {
                 out.println("sign in success");
                 out.println(user.getRole());
                 out.println("welcome " + user.getName());
-            } else {
-                out.print("Invalid password");
-            }
         } else {
-            out.println("User not found");
+            out.println("Invalid credentials");
         }
 
 

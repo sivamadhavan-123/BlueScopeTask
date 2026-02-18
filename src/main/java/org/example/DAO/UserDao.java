@@ -17,7 +17,7 @@ public class UserDao {
 
         try(
                 Connection connection= DataBaseCon.getDataSource().getConnection();
-                PreparedStatement statement=connection.prepareStatement(sql);
+                PreparedStatement statement=connection.prepareStatement(sql)
                 ) {
             statement.setString(1,user.getName());
             statement.setInt(2,user.getAge());
@@ -34,13 +34,11 @@ public class UserDao {
         }
     }
 
-
-    public static LoginDto login(String username){
-
+    public static LoginDto findByUsername(String username){
         String sql = "select  password,role,name from user where username=? "+"union all "+"select  password,role,name from admin where username=?";
         try (
                 Connection connection = DataBaseCon.getDataSource().getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);
+                PreparedStatement statement = connection.prepareStatement(sql)
         ) {
             statement.setString(1, username);
             statement.setString(2, username);
@@ -60,13 +58,19 @@ public class UserDao {
         return null;
     }
 
-    public static List<User> selectAll() {
-        String sql = "select * from user";
+
+
+    public static List<User> selectAll(int pageSize, int offset) {
+
+        String sql = "select * from user limit ? offset ?";
         List<User> users = new ArrayList<>();
 
         try (Connection connection = DataBaseCon.getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
+             PreparedStatement statement = connection.prepareStatement(sql)
         ) {
+            statement.setInt(1, pageSize);
+            statement.setInt(2, offset);
+
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 User user = new User();
@@ -87,7 +91,36 @@ public class UserDao {
     }
 
 
+    public static int totalRows() {
+        String sql = "select count(*) from user";
+        int totalRows = 0;
+        try (Connection connection = DataBaseCon.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet rs = statement.executeQuery()
+        ) {
+
+            if (rs.next()) {
+                totalRows = rs.getInt(1);
+                return  totalRows;
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return totalRows;
     }
+
+
+
+    public static  boolean update(User user){
+
+        return false;
+    }
+
+
+
+}
 
 
 
