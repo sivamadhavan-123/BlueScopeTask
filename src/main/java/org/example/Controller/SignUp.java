@@ -31,8 +31,12 @@ public class SignUp extends HttpServlet {
         User user = new User(name, age, username, hashPassword, mobile);
         user.setRole("USER");
         boolean ok = UserDao.insert(user);
-
-        out.println(ok ? "signup success" : "signup failed");
+if(ok){
+    out.println("signup success");
+   resp.setStatus(HttpServletResponse.SC_CREATED);
+}else{
+    out.println("signup failed");
+}
 
 
     }

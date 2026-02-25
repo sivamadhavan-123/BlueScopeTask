@@ -6,10 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.example.DAO.UserDao;
-
 import org.example.DTO.User;
 import org.example.Service.ServiceLayer;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -76,12 +74,15 @@ public class AdminServlet extends HttpServlet {
 
             }
             out.println("]");
+            resp.setStatus(HttpServletResponse.SC_OK);
 
         } else if (session != null && session.getAttribute("role").equals("USER")) {
             out.println("you are not admin");
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
         } else {
             out.println("You are not logged in ");
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
 
     }

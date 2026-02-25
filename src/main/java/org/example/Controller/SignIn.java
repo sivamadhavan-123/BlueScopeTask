@@ -32,12 +32,12 @@ public class SignIn extends HttpServlet {
                 session.setAttribute("username", user.getUsername());
                 session.setAttribute("role", user.getRole());
                 session.setAttribute("name", user.getName());
-
                 out.println("sign in success");
-                out.println(user.getRole());
-                out.println("welcome " + user.getName());
+                out.println("welcome " + user.getRole());
+                resp.setStatus(HttpServletResponse.SC_OK);
         } else {
             out.println("Invalid credentials");
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
 
 
