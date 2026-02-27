@@ -139,6 +139,49 @@ public class UserDao {
 
         
     }
+
+    public static String existingUserCheck(String username,String mobile) {
+        String sql = "select 1 from user where username = ? or mobile = ?";
+
+        try (Connection connection = DataBaseCon.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setString(1, username);
+            statement.setString(2, mobile);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+             return  "Username or mobile number is  exist";
+
+            }
+            return null;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static String existingUser(String username, String mobile) {
+        String sql = "select 1 from user where (username = ? or mobile = ?) and username !=?";
+
+        try (Connection connection = DataBaseCon.getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setString(1, username);
+            statement.setString(2, mobile);
+            statement.setString(3, username);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return  "Username or mobile number is  exist";
+
+            }
+            return null;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
 
 

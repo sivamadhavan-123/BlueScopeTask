@@ -4,6 +4,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.DAO.UserDao;
 import org.example.DBConnection.DataBaseCon;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,23 +62,15 @@ public class ValidationFilter implements Filter {
 
         if (path.equals("/signup")) {
 
-            String sql = "select 1 from user where username = ? or mobile = ?";
-
-            try (Connection connection = DataBaseCon.getDataSource().getConnection();
-                 PreparedStatement statement = connection.prepareStatement(sql)
-            ) {
-                statement.setString(1, username);
-                statement.setString(2, mobile);
-                ResultSet rs = statement.executeQuery();
-                if (rs.next()) {
-                    out.println("User name is exist or mobile number is  exist");
-                    return;
-                }
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+            String check= UserDao.existingUserCheck(username,mobile);
+            if (check != null) {
+                out.println(check);
             }
-
+        }else{
+            String check= UserDao.existingUser(username,mobile);
+            if (check != null) {
+                out.println(check);
+            }
         }
 
 
@@ -86,4 +79,6 @@ public class ValidationFilter implements Filter {
 
 
     }
+
+
 }
