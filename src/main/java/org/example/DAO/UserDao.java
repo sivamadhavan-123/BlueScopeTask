@@ -13,7 +13,7 @@ public class UserDao {
 
     public static boolean insert(User user) {
 
-        String sql="insert into user (name,age,username,password,mobile,role)  values (?,?,?,?,?,?)";
+        String sql="insert into user (name,age,username,password,mobile)  values (?,?,?,?,?)";
 
         try(
                 Connection connection= DataBaseCon.getDataSource().getConnection();
@@ -24,7 +24,6 @@ public class UserDao {
             statement.setString(3,user.getUsername());
             statement.setString(4,user.getPassword());
             statement.setString(5,user.getMobile());
-            statement.setString(6, user.getRole());
            return statement.executeUpdate() > 0;
 
 
@@ -35,7 +34,7 @@ public class UserDao {
     }
 
     public static LoginDto findByUsername(String username){
-        String sql = "select  password,role,name from user where username=? "+"union all "+"select  password,role,name from admin where username=?";
+        String sql = "select  password,role,name,username from user where username=? "+"union all "+"select  password,role,name,username from admin where username=?";
         try (
                 Connection connection = DataBaseCon.getDataSource().getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)
@@ -49,6 +48,7 @@ public class UserDao {
                 user.setPassword(rs.getString("password"));
                 user.setRole(rs.getString("role"));
                 user.setName(rs.getString("name"));
+                user.setUsername(rs.getString("username"));
                 return user;
 
             }
@@ -112,14 +112,33 @@ public class UserDao {
     }
 
 
+    public static boolean updateUserDetail(String SessionUser, User user){
 
-    public static  boolean update(User user){
+        String sql = "update user set name=?,age=?,username=?,password=?,mobile=? where username=?";
 
-        return false;
+        try(
+                Connection connection = DataBaseCon.getDataSource().getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+
+                ){
+            statement.setString(1,user.getName());
+            statement.setInt(2,user.getAge());
+            statement.setString(3,user.getUsername());
+            statement.setString(4,user.getPassword());
+            statement.setString(5,user.getMobile());
+            statement.setString(6,SessionUser);
+            int rs = statement.executeUpdate();
+
+            return rs >0;
+
+        }catch (SQLException e){
+
+            throw new RuntimeException(e);
+        }
+
+
+        
     }
-
-
-
 }
 
 

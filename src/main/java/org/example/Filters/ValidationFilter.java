@@ -12,12 +12,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebFilter("/signup")
+@WebFilter(urlPatterns = {"/signup","/user"})
 public class ValidationFilter implements Filter {
-
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
@@ -33,6 +31,8 @@ public class ValidationFilter implements Filter {
         String name = req.getParameter("name");
 
         PrintWriter out = resp.getWriter();
+
+        String path=req.getServletPath();
 
         if (name == null || !name.matches(regex_name)) {
             out.println("Invalid name");
@@ -59,22 +59,28 @@ public class ValidationFilter implements Filter {
         }
 
 
-        String sql = "select 1 from user where username = ? or mobile = ?";
+        if (path.equals("/signup")) {
 
-        try (Connection connection = DataBaseCon.getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)
-        ) {
-            statement.setString(1, username);
-            statement.setString(2, mobile);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                out.println("User name is exist or mobile number is  exist");
-                return;
+            String sql = "select 1 from user where username = ? or mobile = ?";
+
+            try (Connection connection = DataBaseCon.getDataSource().getConnection();
+                 PreparedStatement statement = connection.prepareStatement(sql)
+            ) {
+                statement.setString(1, username);
+                statement.setString(2, mobile);
+                ResultSet rs = statement.executeQuery();
+                if (rs.next()) {
+                    out.println("User name is exist or mobile number is  exist");
+                    return;
+                }
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
+
+
 
         chain.doFilter(request, response);
 

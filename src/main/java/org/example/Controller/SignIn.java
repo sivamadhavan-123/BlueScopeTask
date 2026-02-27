@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.example.DTO.LoginDto;
 import org.example.Service.ServiceLayer;
-import org.mindrot.jbcrypt.BCrypt;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -27,13 +26,14 @@ public class SignIn extends HttpServlet {
 
         PrintWriter out = resp.getWriter();
 
+
         if (user != null) {
-                HttpSession session = req.getSession();
+                HttpSession session = req.getSession(true);
                 session.setAttribute("username", user.getUsername());
                 session.setAttribute("role", user.getRole());
                 session.setAttribute("name", user.getName());
                 out.println("sign in success");
-                out.println("welcome " + user.getRole());
+                out.println("welcome " + user.getRole()+" - "+ user.getName());
                 resp.setStatus(HttpServletResponse.SC_OK);
         } else {
             out.println("Invalid credentials");

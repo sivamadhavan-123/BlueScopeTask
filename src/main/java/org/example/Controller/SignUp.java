@@ -29,7 +29,7 @@ public class SignUp extends HttpServlet {
 
 
         User user = new User(name, age, username, hashPassword, mobile);
-        user.setRole("USER");
+       // user.setRole("USER");
         boolean ok = UserDao.insert(user);
 if(ok){
     out.println("signup success");

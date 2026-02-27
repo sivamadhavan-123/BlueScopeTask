@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context docBase="C:\Program Files\Apache Software Foundation\Tomcat 10.1\webapps">
+  <Resources cacheMaxSize="10240">
+    <PreResources base="C:/Users/Bsit-CH-D110/Desktop/BlueScopeTask/target/classes" className="org.apache.catalina.webresources.DirResourceSet" webAppMount="/WEB-INF/classes"/>
+    <PostResources base="C:/Users/Bsit-CH-D110/.m2/repository/org/mindrot/jbcrypt/0.4/jbcrypt-0.4.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/jbcrypt-0.4.jar"/>
+    <PostResources base="C:/Users/Bsit-CH-D110/.m2/repository/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/HikariCP-7.0.2.jar"/>
+    <PostResources base="C:/Users/Bsit-CH-D110/.m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/slf4j-api-2.0.17.jar"/>
+    <PostResources base="C:/Users/Bsit-CH-D110/.m2/repository/org/json/json/20251224/json-20251224.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/json-20251224.jar"/>
+    <PostResources base="C:/Users/Bsit-CH-D110/.m2/repository/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/mysql-connector-j-8.0.33.jar"/>
+    <PostResources base="C:/Users/Bsit-CH-D110/.m2/repository/com/google/protobuf/protobuf-java/3.21.9/protobuf-java-3.21.9.jar" className="org.apache.catalina.webresources.FileResourceSet" webAppMount="/WEB-INF/lib/protobuf-java-3.21.9.jar"/>
+  </Resources>
+</Context>
