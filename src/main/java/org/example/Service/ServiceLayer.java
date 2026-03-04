@@ -1,5 +1,5 @@
 package org.example.Service;
-
+import org.example.DAO.LoginDao;
 import org.example.DAO.UserDao;
 import org.example.DTO.LoginDto;
 import org.example.DTO.User;
@@ -13,7 +13,7 @@ public class ServiceLayer {
     public static LoginDto login(String username,String password){
 
 
-        LoginDto user= UserDao.findByUsername(username);
+        LoginDto user=LoginDao.findByUsername(username);
 
         if(user==null){
             return  null;
