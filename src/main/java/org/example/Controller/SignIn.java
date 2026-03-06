@@ -40,6 +40,12 @@ private static final Logger logger= LogManager.getLogger(SignIn.class.getName())
                 out.println("sign in success");
                 out.println("welcome " + user.getRole()+" - "+ user.getName());
                 resp.setStatus(HttpServletResponse.SC_OK);
+
+//                if(user.getRole().equals("ADMIN")){
+//                    user.getEmail();
+//                }
+
+
                 logger.info("Info : signin success");
         } else {
             out.println("Invalid credentials");

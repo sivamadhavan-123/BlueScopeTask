@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 public class LoginDao {
 
     public static LoginDto findByUsername(String username){
-        String sql = "select  password,role,name,username from user where username=? "+"union all "+"select  password,role,name,username from admin where username=?";
+        String sql = "select  password,role,name,username,email from user where username=? "+"union all "+"select  password,role,name,username,email from admin where username=?";
         try (
                 Connection connection = DataBaseCon.getDataSource().getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)
@@ -25,6 +25,7 @@ public class LoginDao {
                 user.setRole(rs.getString("role"));
                 user.setName(rs.getString("name"));
                 user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
                 return user;
 
             }

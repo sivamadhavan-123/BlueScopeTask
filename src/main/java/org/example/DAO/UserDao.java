@@ -34,6 +34,7 @@ public class UserDao {
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 user.setMobile(rs.getString("mobile"));
+                user.setEmail(rs.getString("email"));
                 users.add(user);
             }
             return users;
@@ -47,7 +48,7 @@ public class UserDao {
 
     public static boolean insert(User user) {
 
-        String sql="insert into user (name,age,username,password,mobile)  values (?,?,?,?,?)";
+        String sql="insert into user (name,age,username,password,mobile,email)  values (?,?,?,?,?,?)";
 
         try(
                 Connection connection= DataBaseCon.getDataSource().getConnection();
@@ -58,6 +59,7 @@ public class UserDao {
             statement.setString(3,user.getUsername());
             statement.setString(4,user.getPassword());
             statement.setString(5,user.getMobile());
+            statement.setString(6,user.getEmail());
            return statement.executeUpdate() > 0;
 
 
@@ -91,7 +93,7 @@ public class UserDao {
 
     public static boolean updateUserDetail(String SessionUser, User user){
 
-        String sql = "update user set name=?,age=?,username=?,password=?,mobile=? where username=?";
+        String sql = "update user set name=?,age=?,username=?,password=?,mobile=? ,email=? where username=?";
 
         try(
                 Connection connection = DataBaseCon.getDataSource().getConnection();
@@ -104,6 +106,7 @@ public class UserDao {
             statement.setString(4,user.getPassword());
             statement.setString(5,user.getMobile());
             statement.setString(6,SessionUser);
+            statement.setString(7,user.getEmail());
             int rs = statement.executeUpdate();
 
             return rs >0;

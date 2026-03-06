@@ -6,6 +6,7 @@ public class LoginDto {
     private String username;
     private String password;
     private String role;
+    private String email;
 
     public LoginDto() {
 
@@ -43,7 +44,14 @@ public class LoginDto {
         this.role = role;
     }
 
-    public LoginDto(String name, String username, String password, String role) {
+    public void getEmail() {
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public LoginDto(String name, String username, String password, String role, String email) {
         this.name = name;
         this.username = username;
         this.password = password;

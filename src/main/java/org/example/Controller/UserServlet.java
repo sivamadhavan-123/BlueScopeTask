@@ -41,10 +41,11 @@ public class UserServlet extends HttpServlet {
                 String password = req.getParameter("password");
                 String username = req.getParameter("username");
                 int age = Integer.parseInt(req.getParameter("age"));
+                String email = req.getParameter("email");
 
                 String hashPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
 
-                User user = new User(name, age, username, hashPassword, mobile);
+                User user = new User(name, age, username, hashPassword, mobile,email);
                 boolean result = UserDao.updateUserDetail(sessionUsername, user);
 
                 if (result) {

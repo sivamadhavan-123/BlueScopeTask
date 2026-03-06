@@ -27,12 +27,14 @@ public class SignupFilter implements Filter {
         final String regex_username = "^[A-Za-z0-9]{3,50}$";
         final String regex_password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@!$*%?&]).{8,}$";
         final String regex_mobile = "^[6-9][0-9]{9}$";
+        final String regex_email ="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
 
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String mobile = req.getParameter("mobile");
         int age = Integer.parseInt(req.getParameter("age"));
         String name = req.getParameter("name");
+        String email = req.getParameter("email");
 
         PrintWriter out = resp.getWriter();
 
@@ -43,6 +45,13 @@ public class SignupFilter implements Filter {
             logger.warn("Invalid name");
             return;
         }
+
+        if (email == null || !email.matches(regex_email)) {
+            out.println("Invalid email");
+            logger.warn("Invalid email");
+            return;
+        }
+
 
         if (mobile == null || !mobile.matches(regex_mobile)) {
             out.println("Invalid mobile number");

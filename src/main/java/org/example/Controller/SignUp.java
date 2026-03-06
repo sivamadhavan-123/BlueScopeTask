@@ -29,11 +29,12 @@ public class SignUp extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String mobile = req.getParameter("mobile");
+        String email = req.getParameter("email");
 
         String hashPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
 
 
-        User user = new User(name, age, username, hashPassword, mobile);
+        User user = new User(name, age, username, hashPassword, mobile,email);
         logger.info("Info :send user value in userDto");
 
         boolean ok = UserDao.insert(user);

@@ -8,6 +8,7 @@ public class User {
     private String password;
     private String mobile;
     private String role;
+    private String email;
 
 
     public User() {
@@ -18,13 +19,21 @@ public class User {
         this.password = password;
     }
 
-    public User(String name, int age, String username, String password, String mobile) {
+    public User(String name, int age, String username, String password, String mobile,String email) {
         this.name = name;
         this.age = age;
         this.username = username;
         this.password = password;
         this.mobile = mobile;
-       // this.role = "USER";
+
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getRole() {
