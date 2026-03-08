@@ -1,6 +1,6 @@
 package org.example.DAO;
 
-import org.example.DBConnection.DataBaseCon;
+import org.example.util.DataBaseCon;
 import org.example.DTO.LoginDto;
 
 import java.sql.Connection;
