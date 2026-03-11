@@ -44,7 +44,8 @@ public class LoginDto {
         this.role = role;
     }
 
-    public void getEmail() {
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {

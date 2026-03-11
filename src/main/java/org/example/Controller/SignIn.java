@@ -10,6 +10,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.DTO.LoginDto;
 import org.example.Service.ServiceLayer;
+import org.example.util.EmailSMTP;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -41,9 +43,13 @@ private static final Logger logger= LogManager.getLogger(SignIn.class.getName())
                 out.println("welcome " + user.getRole()+" - "+ user.getName());
                 resp.setStatus(HttpServletResponse.SC_OK);
 
-//                if(user.getRole().equals("ADMIN")){
-//                    user.getEmail();
-//                }
+                if(user.getRole().equals("ADMIN")){
+                        String email=user.getEmail();
+                        String confirm= EmailSMTP.email(email);
+                        out.println(confirm);
+
+
+                }
 
 
                 logger.info("Info : signin success");
